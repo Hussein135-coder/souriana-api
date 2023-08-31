@@ -114,7 +114,7 @@ async function fetchUser(id){
   }
 
 
-  app.post("/getUser",async (req,res)=>{
+  app.get("/getUser",async (req,res)=>{
         const token2 = req.headers.authorization;
         if (!token2) {
             return res.status(401).json({ error: 'Unauthorized' });
