@@ -40,11 +40,11 @@ app.get('/',async (req,res)=>{
 
 app.post('/login', async (req, res) => {
     try {
-        const { username, password } = req.body;
-        console.log(username,password)
-        // Query the database to check if the username exists
+        const { name, password } = req.body;
+        console.log(name,password)
+        // Query the database to check if the name exists
         const query = 'SELECT * FROM users WHERE name = $1';
-        const result = await pool.query(query, [username]);
+        const result = await pool.query(query, [name]);
         const user = result.rows[0];
     
         if (!user) {
