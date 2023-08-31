@@ -117,7 +117,7 @@ async function fetchUser(id){
   app.get("/getUser",async (req,res)=>{
         const token2 = req.headers.authorization;
         if (!token2) {
-            return res.status(401).json({ error: 'Unauthorized' });
+            return res.json({ error: 'Unauthorized' });
             }
             
             const token  = token2.slice(7)
@@ -144,7 +144,7 @@ async function fetchUser(id){
             }
 
             } catch (error) {
-            return res.status(401).json({  
+            return res.json({  
                 'success' : 0,
                 'status':422,
                 'message' : 'error',
