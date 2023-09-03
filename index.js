@@ -152,3 +152,210 @@ async function fetchUser(id){
             }
       
   })
+
+  app.post("/add" , async (req,res)=>{
+    const { name, money ,company,date,status,user} = req.body;
+
+    try {
+       const query = 'INSERT INTO money (الاسم,المبلغ,الشركة,التاريخ , الحالة , المستلم) VALUES ($1, $2,$3,$4,$5,$6)';
+       const values = [name, money ,company,date,status,user];
+       
+       pool.query(query, values, (err, result) => {
+         if (err) {
+           console.error(err);
+           res.json({  
+            'success' : 0,
+            'status':422,
+            'message' : 'error',
+            });
+         } else {
+          
+            res.json({
+                    
+                "success" : 1,
+                "status" : 201,
+                "message" : "تم ادخال البيانات بنجاح"
+                
+            })
+         }
+       });
+    
+    
+    } catch (error) {
+        console.error(err);
+        res.json({  
+         'success' : 0,
+         'status':422,
+         'message' : 'error',
+         });
+    }
+  })
+
+
+
+  app.post("/edit" , async (req,res)=>{
+    const {id, name, money ,company,date,status,user} = req.body;
+
+    try {
+       const query = `UPDATE money SET الاسم = $1 , المبلغ = $2 , الشركة = $3 , التاريخ = $4 , الحالة = $5 , المستلم = $6 WHERE id = $7`;
+       const values = [name, money ,company,date,status,user,id];
+       
+       pool.query(query, values, (err, result) => {
+         if (err) {
+           console.error(err);
+           res.json({  
+            'success' : 0,
+            'status':422,
+            'message' : 'error',
+            });
+         } else {
+          console.log('doone')
+            res.json({
+                    
+                "success" : 1,
+                "status" : 201,
+                "message" : "تم تعديل البيانات بنجاح"
+                
+            })
+         }
+       });
+    
+    
+    } catch (error) {
+        console.error(err);
+        res.json({  
+         'success' : 0,
+         'status':422,
+         'message' : 'error',
+         });
+    }
+  })
+
+
+  app.post("/del" , async (req,res)=>{
+    const {id} = req.body;
+
+    try {
+       const query = `DELETE FROM money WHERE id = $1`;
+       const values = [id];
+       
+       pool.query(query, values, (err, result) => {
+         if (err) {
+           console.error(err);
+           res.json({  
+            'success' : 0,
+            'status':422,
+            'message' : 'error',
+            });
+         } else {
+          console.log('doone')
+            res.json({
+                    
+                "success" : 1,
+                "status" : 201,
+                "message" : "تم حذف البيانات بنجاح"
+                
+            })
+         }
+       });
+    
+    
+    } catch (error) {
+        console.error(err);
+        res.json({  
+         'success' : 0,
+         'status':422,
+         'message' : 'error',
+         });
+    }
+  })
+
+  app.post("/delAll" , async (req,res)=>{
+    const {user} = req.body;
+
+    try {
+       const query = `DELETE FROM money WHERE المستلم = $1`;
+       const values = [user];
+       
+       pool.query(query, values, (err, result) => {
+         if (err) {
+           console.error(err);
+           res.json({  
+            'success' : 0,
+            'status':422,
+            'message' : 'error',
+            });
+         } else {
+          console.log('doone')
+            res.json({
+                    
+                "success" : 1,
+                "status" : 201,
+                "message" : "تم حذف البيانات بنجاح"
+                
+            })
+         }
+       });
+    
+    
+    } catch (error) {
+        console.error(err);
+        res.json({  
+         'success' : 0,
+         'status':422,
+         'message' : 'error',
+         });
+    }
+  })
+
+
+  app.post("/add-analytics" , async (req,res)=>{
+    let name = '';
+    const { page, likes ,members,date} = req.body;
+
+    if (page == 'syredu') {
+        name = 'سوريانا التعليمية';
+    }
+
+    if (page == 'bac') {
+        name = 'بكالوريا سوريا';
+    }
+
+    if (page == 'syr') {
+        name = 'سوريا التعليمية';
+    }
+
+    // try {
+    //    const query = 'INSERT INTO money (الاسم,المبلغ,الشركة,التاريخ , الحالة , المستلم) VALUES ($1, $2,$3,$4,$5,$6)';
+    //    const values = [name, money ,company,date,status,user];
+       
+    //    pool.query(query, values, (err, result) => {
+    //      if (err) {
+    //        console.error(err);
+    //        res.json({  
+    //         'success' : 0,
+    //         'status':422,
+    //         'message' : 'error',
+    //         });
+    //      } else {
+          
+    //         res.json({
+                    
+    //             "success" : 1,
+    //             "status" : 201,
+    //             "message" : "تم ادخال البيانات بنجاح"
+                
+    //         })
+    //      }
+    //    });
+    
+    
+    // } catch (error) {
+    //     console.error(err);
+    //     res.json({  
+    //      'success' : 0,
+    //      'status':422,
+    //      'message' : 'error',
+    //      });
+    // }
+  })
