@@ -16,13 +16,8 @@ const pool = new Pool({
       },
   });
 
-//   pool.query(`INSERT INTO users (id,name,email,password,namear) VALUES (3,'saleh','saleh@souriana.sy','5555','صالح')`, (err, res) => {
-//     if (err) {
-//       console.error('Error executing query:', err);
-//     } else {
-//       console.log('Database connection test successful');
-//     }
-//   });
+
+
 
 app.use(
 	cors(),
@@ -325,37 +320,118 @@ async function fetchUser(id){
         name = 'سوريا التعليمية';
     }
 
-    // try {
-    //    const query = 'INSERT INTO money (الاسم,المبلغ,الشركة,التاريخ , الحالة , المستلم) VALUES ($1, $2,$3,$4,$5,$6)';
-    //    const values = [name, money ,company,date,status,user];
+    try {
+       const query = `INSERT INTO ${page} (name, likes, members, date) VALUES ($1,$2,$3,$4)`;
+       const values = [name, likes ,members,date];
        
-    //    pool.query(query, values, (err, result) => {
-    //      if (err) {
-    //        console.error(err);
-    //        res.json({  
-    //         'success' : 0,
-    //         'status':422,
-    //         'message' : 'error',
-    //         });
-    //      } else {
+       pool.query(query, values, (err, result) => {
+         if (err) {
+           console.error(err);
+           res.json({  
+            'success' : 0,
+            'status':422,
+            'message' : 'error',
+            });
+         } else {
           
-    //         res.json({
+            res.json({
                     
-    //             "success" : 1,
-    //             "status" : 201,
-    //             "message" : "تم ادخال البيانات بنجاح"
+                "success" : 1,
+                "status" : 201,
+                "message" : "تم ادخال البيانات بنجاح"
                 
-    //         })
-    //      }
-    //    });
+            })
+         }
+       });
     
     
-    // } catch (error) {
-    //     console.error(err);
-    //     res.json({  
-    //      'success' : 0,
-    //      'status':422,
-    //      'message' : 'error',
-    //      });
-    // }
+    } catch (error) {
+        console.error(err);
+        res.json({  
+         'success' : 0,
+         'status':422,
+         'message' : 'error',
+         });
+    }
   })
+
+  app.get("/bac",async (req,res)=>{
+    try {
+      const query = "SELECT * FROM bac";
+      const result = await pool.query(query);
+      if (result.rowCount > 0) {
+          console.log(result.rows)
+          res.json(result.rows)
+      }else{         
+        console.log("err")
+        res.json({  
+          'success' : 0,
+          'status':422,
+          'message' : 'error',
+          });
+      }
+  } catch (e) {
+    res.json({  
+      'success' : 0,
+      'status':422,
+      'message' : 'error',
+      });
+  }
+  
+
+  
+})
+
+app.get("/syr",async (req,res)=>{
+  try {
+    const query = "SELECT * FROM syr";
+    const result = await pool.query(query);
+    if (result.rowCount > 0) {
+        console.log(result.rows)
+        res.json(result.rows)
+    }else{         
+      console.log("err")
+      res.json({  
+        'success' : 0,
+        'status':422,
+        'message' : 'error',
+        });
+    }
+} catch (e) {
+  res.json({  
+    'success' : 0,
+    'status':422,
+    'message' : 'error',
+    });
+}
+
+
+
+})
+
+app.get("/syredu",async (req,res)=>{
+  try {
+    const query = "SELECT * FROM syredu";
+    const result = await pool.query(query);
+    if (result.rowCount > 0) {
+        console.log(result.rows)
+        res.json(result.rows)
+    }else{         
+      console.log("err")
+      res.json({  
+        'success' : 0,
+        'status':422,
+        'message' : 'error',
+        });
+    }
+} catch (e) {
+  res.json({  
+    'success' : 0,
+    'status':422,
+    'message' : 'error',
+    });
+}
+
+
+
+})
