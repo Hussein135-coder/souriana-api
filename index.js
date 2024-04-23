@@ -5,15 +5,12 @@ const { Pool } = require('pg');
 require("dotenv").config();
 const app = express()
 
-const host = process.env.HOST;
-const passowrd = process.env.PASSWORD;
-const dbName = process.env.DBNAME;
 
 const pool = new Pool({
     user: 'default',
-    host:host,
-    database: dbName,
-    password: password,
+    host:process.env.HOST,
+    database: process.env.DBNAME,
+    password: process.env.PASSWORD,
     port: 5432, 
     ssl: {
         rejectUnauthorized: false,
