@@ -2,14 +2,18 @@ const express = require('express')
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const { Pool } = require('pg');
+require("dotenv").config();
 const app = express()
 
+const host = process.env.HOST;
+const passowrd = process.env.PASSWORD;
+const dbName = process.env.DBNAME;
 
 const pool = new Pool({
     user: 'default',
-    host: 'ep-polished-sun-60538222-pooler.ap-southeast-1.postgres.vercel-storage.com',
-    database: 'verceldb',
-    password: 'Q21GkCKhrelE',
+    host:host,
+    database: dbName,
+    password: password,
     port: 5432, 
     ssl: {
         rejectUnauthorized: false,
